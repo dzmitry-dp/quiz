@@ -1,0 +1,9 @@
+[user]
+	name = dzmitry-dp
+	email = dzmitrupaulenka@outlook.com
+	token = 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
+[alias]
+	lg = log --pretty=oneline --graph
+	last = log -1 HEAD
+[core]
+	editor = vim
