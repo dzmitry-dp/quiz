@@ -1,0 +1,23 @@
+table{
+    margin: auto;
+}
+body {
+  background-image: url('../img/bg.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  overflow: hidden;
+}
+@font-face{
+  font-family: "Geometria";
+  src: url("../fonts/geometria_bold.otf") format("truetype");
+  font-style: normal; 
+  font-weight: normal; 
+}
+.sh { animation: show 4s;
+}
+
+@keyframes show {
+
+from {opacity: 0;} to {opacity: 1;}
+}

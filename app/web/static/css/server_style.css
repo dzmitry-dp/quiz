@@ -1,0 +1,76 @@
+li {
+  list-style-type: none; /* Убираем маркеры */
+}
+a{
+  font-family: "Geometria";
+  /* opacity: 85%; */
+  /* text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; */
+}
+
+.ndt{
+  margin-top: 50px;
+} 
+
+@font-face{
+  font-family: "Geometria";
+  src: url("../fonts/geometria_bold.otf") format("truetype");
+  font-style: normal; 
+  font-weight: normal; 
+}
+
+body {
+  background-image: url('../img/bg.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.circle {
+  -webkit-animation: pulsing 6s infinite;
+  animation: pulsing 6s infinite;
+}
+
+@-webkit-keyframes pulsing {
+  0% {
+    -webkit-transform: scale(0.96, 0.96);
+    transform: scale(0.96, 0.96)
+  }
+  50% {
+    -webkit-transform: scale(1.0, 1.0);
+    transform: scale(1.0, 1.0);
+  }
+  100% {
+    -webkit-transform: scale(0.96, 0.96);
+    transform: scale(0.96, 0.96);
+  }
+}
+
+@keyframes pulsing {
+  0% {
+-webkit-transform: scale(0.96, 0.96);
+    transform: scale(0.96, 0.96)
+  }
+  50% {
+    -webkit-transform: scale(1.0, 1.0);
+    transform: scale(1.0, 1.0);
+  }
+  100% {
+    -webkit-transform: scale(0.96, 0.96);
+    transform: scale(0.96, 0.96);
+  }
+}
+
+.sh { animation: show 4s;
+}
+
+@keyframes show {
+
+from {opacity: 0;} to {opacity: 1;}
+}
+
+.am {
+  font-size: 108px !important;
+  color: #52d1f4 !important;
+  text-shadow: -.3pc 0px 8px #000;
+}

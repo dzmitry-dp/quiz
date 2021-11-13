@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Round 1
+{% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style_client.css') }}" />
+    {% endblock %}
+    
+{% block content %}
+<div class="container h-100" style="position: relative;">
+    <div class="h-100 justify-content-center align-items-center" style="margin-top: 5%;">
+        <div class="form-group">
+            <form class="text-center justify-content-center align-self-center" method="post" autocomplete="off" action="{{ url_for('get_started_teams_forms') }}">
+                <table class="table">
+                    <tr>
+                        <td>
+                            <div>
+                                <h3>{{question_number}}</h3>
+                                <h3>{{category_name}}</h3>
+                                <h3>{{rule}}</h3>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="circle" id = "app"><script src="{{ url_for('static', filename='js/timer.js') }} "></script></div>
+                        </td>
+                    </tr>
+                </table>
+                <table table class="table" style="text-align: center; ">
+                    <tr>
+                        <td>
+                            <div style="margin-top: 100px;">
+                                <p>{{question}}</p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container h-100" style="position: absolute; right: 15px; bottom: 15px; left: 15px; top: 60%;">
+    <div class="h-100 justify-content-center align-items-center">
+        <div class="form-group sh">
+            <form class="text-center justify-content-center align-self-center" method="post" autocomplete="off" action="{{ url_for('get_started_teams_forms') }}">
+                <table class="table table-bordered">
+                    <tr class="table-info">
+                        <td>
+                            <a class="btn am" style="font-size: xx-large;">{{answer_options[0]}}</a>
+                        </td>
+                        <td>
+                            <a class="btn am" style="font-size: xx-large;">{{answer_options[1]}}<a>
+                        </td>
+                    </tr>
+                    <tr class="table-info">
+                        <td>
+                            <a class="btn am" style="font-size: xx-large;">{{answer_options[2]}}</a>
+                        </td>
+                        <td>
+                            <a class="btn am" style="font-size: xx-large;">{{answer_options[3]}}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                </table>
+                <table class="table" style="text-align: center; font-size: 56px;">
+                        <td style="width: 25%;"><a class="btn btn-light"><img src="../static/img/sound.jpg" height="60px"></a></td>
+                        <td style="width: 25%;"><input class="btn btn-warning" type = "button" onclick = "startTimer()" value = "Timer: On"></td>
+                        <!-- <td style="width: 25%;"><button class="btn btn-warning">Timer: On</button></td> -->
+                        <td style="width: 25%;"><button class="btn btn-danger">Timer: Off</button></td>
+                        <td style="width: 25%;"><a href="{{ url_for('client_0.page_question_client') }}" class="btn btn-success">Next ></a></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block message %}
+<!-- <table style="margin-top: 30%; ">
+    <tr>
+        <td><button>Timer: Off</button></td>
+        <td><a href="{{ url_for('client_0.page_question_client') }}" class="btn btn-success">Next ></a></td>
+    </tr>
+</table> -->
+{% endblock %}

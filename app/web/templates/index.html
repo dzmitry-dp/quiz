@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Quize
+{% endblock %}
+
+{% block content %}
+<div class="container h-100">
+    <div class="h-100 justify-content-center align-items-center" style="margin-top: 30%;">
+        <div class="form-group text-center sh">
+            <ul>
+                <li class="circle">
+                    <a href="{{ url_for('client_1.in_the_game_client') }}" class="btn btn-block font-weight-bold am">Client</a>
+                </li>   
+                <li class="circle">
+                    <a href="{{ url_for('get_started_main_page') }}" class="btn btn-block font-weight-bold am">Server</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block message %}
+<footer class="text-center text-lg-start">
+    <!-- <a href="{{ url_for('reset_server') }}"><img src="../static/img/reset.png" height="96" width="96"/></a> -->
+    <!-- Copyright -->
+    <div class="text-center p-4">
+        © 2021 
+        <a class="fw-bold" href="https://a-props.com/" style="color: #52d1f4;">A+props</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- Footer -->
+{% endblock %}

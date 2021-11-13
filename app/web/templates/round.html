@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Round 1
+{% endblock %}
+
+{% block content %}
+<table style="margin: auto; margin-top: 17%;" class="circle">
+    <tr>
+        <td><h1 style="font-size: 170px;">ROUND</h1></td>
+    </tr>
+    <tr>
+        <td><h2 style="font-size: 170px; text-align: center;">{{round_number}}</h2></td>
+    </tr>
+</table>
+
+<table style="margin: auto; margin-top: 50px;">
+    <tr>
+        <!-- client_1 для клиента используй ниже -->
+        <td><a href="{{ url_for('client_0.page_question_client') }}" class="btn btn-success">Start ></a></td>
+        <td><a href="{{ url_for('get_teams_table') }}" class="btn btn-warning">View table</a></td>
+    </tr>
+</table>
+
+{% endblock %}
+
+{% block message %}
+
+{% endblock %}

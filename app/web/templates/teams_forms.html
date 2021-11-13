@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Let's start
+{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/teams_form_style.css')  }}" />
+{% endblock %}
+
+{% block content %}
+<div class="container h-100">
+    <div class="h-100 justify-content-center align-items-center" style="margin-top: 25%;">
+        <div class="form-group sh">
+            <h1>Let's start the game <a class="btn btn-success" href="{{ url_for('get_teams_table') }}">Play ></a></h1>
+            <form class="text-center justify-content-center align-self-center" method="post" autocomplete="off" action="{{ url_for('get_started_teams_forms') }}">
+                <table>
+                    <!-- <tr> -->
+                        <!-- <label for="teamName">What is the name of the team? </label> -->
+                    <!-- </tr> -->
+                    <tr>
+                        <input type="text" placeholder="{{team_number}}" name="name" value="{{ request.args.get(name, '') }}" class="form-control" style="margin-top: 50px; font-size: 56px; text-align: center;">
+                    </tr>
+                    <tr>
+                        <button type="submit" class="btn btn-info" style="margin-top: 60px; font-size: 28px;"><p style="margin: auto; color: white;">Create team</p></button>
+                    </tr>
+                </table>
+                <!-- <a href="{{ url_for('get_teams_table')}}"><img src="../static/img/check.png"></button>    -->
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block message %}
+<table>
+    {% for name in team_name_list %}
+    <tr>
+        <td>{{name}}</td>
+        <td>
+            <form action="{{ url_for('delete_team_name') }}" method="post">
+                <button type="submit" name="del" value="{{name}}" class="bt"><img src="../static/img/minus.png" width="20" height="20"></button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<!-- <footer class="text-center text-lg-start"> -->
+    <!-- <a href="{{ url_for('reset_server') }}"><img src="../static/img/reset.png" height="96" width="96"/></a> -->
+    <!-- Copyright -->
+    <!-- <div class="text-center p-4"> -->
+        <!-- © 2021  -->
+        <!-- <a class="fw-bold" href="https://a-props.com/" style="color: #52d1f4;">A+props</a> -->
+    <!-- </div> -->
+    <!-- Copyright -->
+<!-- </footer> -->
+<!-- Footer -->
+
+{% endblock %}

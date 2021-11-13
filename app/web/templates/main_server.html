@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Start menu
+{% endblock %}
+
+{% block content %}
+<div class="container h-100">
+    <div class="h-100 justify-content-center align-items-center" style="margin-top: 30%;">
+        <div class="form-group text-center sh">
+            <ul text-center>
+                <li class="circle">
+                    <a href="{{ url_for('get_started_teams_forms') }}" class="btn btn-block font-weight-bold am">New Game</a>
+                </li>   
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block message %}
+<footer class="text-center text-lg-start">
+    <!-- <a href="{{ url_for('reset_server') }}"><img src="../static/img/reset.png" height="96" width="96"/></a> -->
+    <!-- Copyright -->
+    <div class="text-center p-4">
+        © 2021 
+        <a class="fw-bold" href="https://a-props.com/" style="color: #52d1f4;">A+props</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- Footer -->
+{% endblock %}

@@ -1,0 +1,33 @@
+body {
+  background-image: url('../img/bg.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  overflow: hidden;
+}
+h1{
+    text-align: center;
+    font-size: 96px;
+    color: #52d1f4;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+table {
+    margin: auto; /* Выравниваем таблицу по центру окна  */
+   }
+
+.bt {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    padding-left: 10px;
+}
+
+@font-face{
+  font-family: "Geometria";
+  src: url("../fonts/geometria_bold.otf") format("truetype");
+  font-style: normal; 
+  font-weight: normal; 
+}
