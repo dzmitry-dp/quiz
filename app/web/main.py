@@ -1,18 +1,17 @@
 from loguru import logger
 from flask import Flask, render_template
-from blueprint import get_client_print
 
-from web_config import FlaskConfiguration
+from blueprint import get_client_print
+import web_config
 from logic.action import WebInterface, WorkWithCSV
-import config
 import view
 
 
 def create_app(name=__name__):
     "n - номер клиента"
     import os
-    app = Flask(name, template_folder=config.FLASK_TEMPLATES_PATH, static_folder=config.FLASK_STATIC_PATH)
-    app.config.from_object(FlaskConfiguration)
+    app = Flask(name, template_folder=web_config.config.FLASK_TEMPLATES_PATH, static_folder=web_config.config.FLASK_STATIC_PATH)
+    app.config.from_object(web_config.FlaskConfiguration)
     
     for n in range(2):
         # 0 - клиент сам сервер
@@ -40,19 +39,19 @@ def create_app(name=__name__):
 
             if game_data.STAGE == 0:
                 rule = '20s/20b'
-                category = next(iter(config.CATEGORY_QUESTIONS[0]))
+                category = next(iter(web_config.config.CATEGORY_QUESTIONS[0]))
             elif game_data.STAGE == 1:
                 rule = '20s/30b'
-                category = next(iter(config.CATEGORY_QUESTIONS[1]))
+                category = next(iter(web_config.config.CATEGORY_QUESTIONS[1]))
             elif game_data.STAGE == 2:
                 rule = '30s/50b'
-                category = next(iter(config.CATEGORY_QUESTIONS[2]))
+                category = next(iter(web_config.config.CATEGORY_QUESTIONS[2]))
             elif game_data.STAGE == 3:
                 rule = '40s/70b'
-                category = next(iter(config.CATEGORY_QUESTIONS[3]))
+                category = next(iter(web_config.config.CATEGORY_QUESTIONS[3]))
             elif game_data.STAGE == 4:
                 rule = '60s/100b'
-                category = next(iter(config.CATEGORY_QUESTIONS[4]))
+                category = next(iter(web_config.config.CATEGORY_QUESTIONS[4]))
             
             if game_data.QUESTION_NUMBER < 10:
                 question, _row_number_in_csv = WorkWithCSV.read_question(game_data.QUESTION_NUMBER, game_data.STAGE) # читаю вопрос

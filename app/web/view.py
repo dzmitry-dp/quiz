@@ -3,9 +3,8 @@ import csv
 from loguru import logger
 from flask import render_template, request
 
+import web_config
 from main import create_app
-from web_config import _port
-import config
 from logic.action import WebInterface
 
 logger.info('Web-Server: Буду создавать приложение Flask')
@@ -13,35 +12,38 @@ client = create_app(name='web_server') # сервер
 logger.info('Web-Server: Flask создан!')
 
 def rewrite_teams_csv_file(team_name_list, points_round_1=0, points_round_2=0, points_round_3=0, points_round_4=0, points_round_5=0):
-    with open(config.TEAMS_CSV_PATH, 'w') as csvfile:
+    with open(web_config.config.TEAMS_CSV_PATH, 'w') as csvfile:
         logger.info('Web-Server: Открываем teams.csv на перезапись')
         csv_writer = csv.writer(csvfile, delimiter=';')
         for name in team_name_list:
             csv_writer.writerow([name, points_round_1, points_round_2, points_round_3, points_round_4, points_round_5])
 
 def add_to_teams_csv_file(team_name, points_round_1=0, points_round_2=0, points_round_3=0, points_round_4=0, points_round_5=0):
-    with open(config.TEAMS_CSV_PATH, 'a') as csvfile:
+    with open(web_config.config.TEAMS_CSV_PATH, 'a') as csvfile:
         logger.info('Web-Server: Открываем teams.csv на добавление')
         csv_writer = csv.writer(csvfile, delimiter=';',)
         csv_writer.writerow([team_name, points_round_1, points_round_2, points_round_3, points_round_4, points_round_5])
 
-def open_csv_teams_file():
+def open_csv_teams_file(_del_name=None):
     line_count = 0 # количество строк в csv файле teams
-    with open(config.TEAMS_CSV_PATH, 'r') as csvfile:
+    with open(web_config.config.TEAMS_CSV_PATH, 'r') as csvfile:
         logger.info('Web-Server: Открываем teams.csv на чтение')
         csv_reader = csv.reader(csvfile, delimiter=';')
         team_name_list = []
         teams_points = {}
+        logger.info(f'Web-Server: Имя на удаление из списка {_del_name}')
         for row in csv_reader:
+            if _del_name != None:
+                if row[0] == _del_name: # если имя на удаление, то не добавляем его в список имен
+                    continue # проходим дальше
             team_name_list.append(row[0])
             teams_points[row[0]] = row[1:]
             line_count += 1
-    logger.info(f'{teams_points}')
     return team_name_list, line_count, teams_points
 
 def remove_teams_csv_file():
     try:
-        os.remove(config.TEAMS_CSV_PATH)
+        os.remove(web_config.config.TEAMS_CSV_PATH)
         logger.info('Web-Server: Удалил teams.csv')
     except FileNotFoundError:
         logger.info('Web-Server: Файл не найден. teams.csv')
@@ -65,12 +67,7 @@ def choice_client_server():
 @client.route("/admin", methods=['POST', 'GET'])
 def get_started_main_page():
     logger.info('Web-Server: Вызвали адрес /admin')
-
-    remove_teams_csv_file()
-    from logic.action import WebInterface
-
-    iWeb = WebInterface()
-    game_data = iWeb.game_data
+    remove_teams_csv_file() # очищаем данные команд о прошедшей игре
 
     return render_template('main_server.html')
 
@@ -79,30 +76,17 @@ def get_started_main_page():
 def delete_team_name():
     logger.info('Web-Server: Вызвали адрес /del')
     del_name = request.form.get('del', '')
-    line_count = 0 # количество строк в файле
-    with open(config.TEAMS_CSV_PATH, 'r') as csvfile:
-        logger.info('Web-Server: Открываем teams.csv на чтение для удаления имени команды')
-        csv_reader = csv.reader(csvfile, delimiter=';')
-        team_name_list = []
-       
-        logger.info(f'Web-Server: Имя на удаление из списка {del_name}') 
-        for row in csv_reader:
-            if row[0] == del_name: # если имя на удаление, то не добавляем его в список имен
-                pass
-            else:
-                team_name_list.append(row[0])
-                line_count += 1
-            
     team_name = request.form.get('name', '')
+    team_name_list, line_count, teams_points = open_csv_teams_file(del_name)
 
     if team_name == '':
         pass
     elif team_name not in team_name_list:
         team_name_list.append(team_name)
         line_count += 1
-
-    rewrite_teams_csv_file(team_name_list)
     
+    rewrite_teams_csv_file(team_name_list)
+
     return get_started_teams_forms(team_name_list, line_count)
 
 # press New Game

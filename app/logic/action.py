@@ -3,13 +3,15 @@ import subprocess
 import pickle
 import csv
 
-import config
-from logic.cnf import GameDataClass
+import logic.cnf as cnf
+
+logger.error('Импортировали action.py')
 
 class WorkWithCSV:
+    @logger.catch
     @staticmethod
     def read_question(question_number, stage):
-        _path = f'{list(config.CATEGORY_QUESTIONS[stage].values())[0]}/questions.csv'
+        _path = f'{list(cnf.config.CATEGORY_QUESTIONS[stage].values())[0]}/questions.csv'
         with open(_path, 'r') as csvfile:
             logger.info(f'Читаю вопросы квиза по адресу {_path}')
             csv_reader = csv.reader(csvfile, delimiter=';')
@@ -21,9 +23,10 @@ class WorkWithCSV:
             random_question = choice(questions_list)
         return random_question, questions_list.index(random_question)
 
+    @logger.catch
     @staticmethod
     def read_answer_options(stage, row_number):
-        _path = f'{list(config.CATEGORY_QUESTIONS[stage].values())[0]}/answer_options.csv'
+        _path = f'{list(cnf.config.CATEGORY_QUESTIONS[stage].values())[0]}/answer_options.csv'
         with open(_path, 'r') as csvfile:
             logger.info(f'Читаю ответы квиза по адресу {_path}')
             csv_reader = csv.reader(csvfile, delimiter=';')
@@ -32,6 +35,7 @@ class WorkWithCSV:
                 answer_list.append(row)
         return answer_list[row_number]
 
+    @logger.catch
     @staticmethod
     def read_correct_answer(stage, row_number):
         return 'Вариант 3'
@@ -41,9 +45,10 @@ class WebInterface:
         logger.info('Собираем WebInterface class')
         self._game_data = None
 
+    @logger.catch
     @staticmethod
     def read_game_data():
-        with open(config.PATH_TO_GAME_DATA, 'rb') as file:
+        with open(cnf.config.PATH_TO_GAME_DATA, 'rb') as file:
             game_data = pickle.load(file)
             logger.info(f'{game_data}')
         return game_data
@@ -52,15 +57,15 @@ class WebInterface:
     @logger.catch
     def update_game_data(data, message=None):
         'Данные о игре обновляются каждый раунд'
-        with open(config.PATH_TO_GAME_DATA, 'wb') as file:
-            logger.info(f'Запись файла {config.PATH_TO_GAME_DATA}. {message}')
+        with open(cnf.config.PATH_TO_GAME_DATA, 'wb') as file:
+            logger.info(f'Запись файла {cnf.config.PATH_TO_GAME_DATA}. {message}')
             pickle.dump(data, file)
 
     @property
     @logger.catch
     def game_data(self):
         if self._game_data == None:
-            game_data = GameDataClass()
+            game_data = cnf.GameDataClass()
             # после того, как процесс был запущен запишем pid в данный о игре
             game_data.PYTHON_PID = self._get_pid() # сохраняю pip процесса
             self.update_game_data(data=game_data, message='- Это базовые настройки.')
@@ -75,7 +80,7 @@ class WebInterface:
 
     @logger.catch
     def _get_pid(self):
-        cmd = f'netstat -tulnp | grep :{config.PORT} && /python'
+        cmd = f'netstat -tulnp | grep :{cnf.config.PORT} && /python'
         process_out = subprocess.run(cmd, shell=True, capture_output=True)
         python_pid = process_out.stdout.decode("utf-8").replace(' ', '').split('LISTEN')[-1].split('/')[0]
         logger.info(f'{process_out}')
@@ -84,12 +89,12 @@ class WebInterface:
     @logger.catch
     def start_flask(self):
         "Раскручиваем Flask и запускаем браузер"
-        logger.info(f'Запускаем Flask отдельным процессом {config.CMD_START_FLASK_APP}')
-        p = subprocess.Popen([config.CMD_START_FLASK_APP,], shell=True, stdout=subprocess.PIPE)
+        logger.info(f'Запускаем Flask отдельным процессом {cnf.config.CMD_START_FLASK_APP}')
+        p = subprocess.Popen([cnf.config.CMD_START_FLASK_APP,], shell=True, stdout=subprocess.PIPE)
 
         # запускаем браузер по нужному адресу
         import webbrowser
-        webbrowser.open_new_tab(f'{config.START_PAGE}')
+        webbrowser.open_new_tab(f'{cnf.config.START_PAGE}')
 
         # self.game_data()
 

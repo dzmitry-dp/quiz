@@ -30,9 +30,6 @@ FLASK_STATIC_PATH = './app/web/static'
 # даммые о игре хранятся в файле
 PATH_TO_GAME_DATA = 'game_data.pickle'
 
-# сериалиованный объект процесса Python
-FLASK_SUBPROCESS = 'flask_process.pickle'
-
 # названия категорий игры
 CATEGORY_QUESTIONS = [
     {'category_1': './app/logic/data/category_1'},

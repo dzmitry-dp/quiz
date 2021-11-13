@@ -1,5 +1,4 @@
 "Замораживаем данные о игре при помощи "
-
 import config
 
 class GameDataClass:

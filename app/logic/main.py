@@ -8,7 +8,7 @@ class Master(WebInterface):
     def __init__(self) -> None:
         super().__init__() # собираю web интерфейс
 
-    @property
+    @logger.catch
     def preload(self):
         "Подготовка веб интерфейса"
         from logic.thread import MyThread
@@ -19,6 +19,7 @@ class Master(WebInterface):
         # t.join() # ожидаем завершения потока
         # logger.info('Поток action.start_web() завершен')
 
+    @logger.catch
     def call_the_client(self):
         # идет опрос клиентов
         logger.info('-- Обзваниваем клиентов')

@@ -19,3 +19,4 @@ __pycache__
 *.gz
 *.tex
 *.csv
+*.pickle
