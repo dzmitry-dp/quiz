@@ -37,7 +37,6 @@ class WorkWithCSV:
         return 'Вариант 3'
 
 class WebInterface:
-
     def __init__(self) -> None:
         logger.info('Собираем WebInterface class')
         self._game_data = None

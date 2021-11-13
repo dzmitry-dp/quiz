@@ -1,6 +1,6 @@
 **Web-серверная программа quize.**
 ===
-
+![alt text](https://github.com/dzmitry-dp/quiz/blob/master/fp.png?raw=true)
 Общая логика
 ---
 Скрипт запускается на web-серверe при загрузке операционной системы, как демон. На web-сервере нужен Linux, папка 'venv' в корне программы (Virtual Environment), Python3 и пакеты установленные через pip install (requirements.txt). 
