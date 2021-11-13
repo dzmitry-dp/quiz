@@ -5,7 +5,6 @@ from logic.action import WebInterface
 
 
 class Master(WebInterface):
-    "Логика запуска скрипта со статусом 'сервер'"
     def __init__(self) -> None:
         super().__init__() # собираю web интерфейс
 
