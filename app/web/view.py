@@ -57,6 +57,8 @@ def messages_in_teams_form_line(line_count=0):
         message = 'Write the name of the third team ...' 
     elif line_count == 3:
         message = 'Write the name of the fourth team ...'
+    else:
+        return None
     return message
 
 @client.route("/", methods=['POST', 'GET'])
@@ -119,7 +121,7 @@ def get_started_teams_forms(team_name_list=None, line_count=None):
         
         elif team_name == '': # если небыло название команды, то страница возвращает ''
             # если имя - пустая строка
-            if team_name_list == None and line_count == None:
+            if team_name_list == None:
                 team_name_list, line_count, teams_points = open_csv_teams_file()
 
         return render_template('teams_forms.html', team_number=messages_in_teams_form_line(line_count), team_name_list=team_name_list)

@@ -1,4 +1,3 @@
-"Главный файл логики игры"
 from loguru import logger
 
 from logic.action import WebInterface
