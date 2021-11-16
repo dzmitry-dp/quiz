@@ -18,5 +18,7 @@ __pycache__
 *.out
 *.gz
 *.tex
-*.csv
 *.pickle
+
+trace.csv
+game_data.pickle
