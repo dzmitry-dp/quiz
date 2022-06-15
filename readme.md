@@ -1,4 +1,3 @@
-**Flask + csv = Quiz**
 ===
 ![alt text](https://github.com/dzmitry-dp/quiz/blob/master/app/web/static/img/fp.png?raw=true)
 Общая логика
